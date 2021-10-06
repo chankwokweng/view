@@ -83,7 +83,7 @@ class DietDiary extends Component {
     constructor(props) {
         super(props);
         this.state = { dataChangeToggle: false };
-        console.log("DietDiary - DietDiary props=", this.props);
+        // console.log("DietDiary - DietDiary props=", this.props);
     }
 
     handleDietDiaryChange = (event, row, keyword) => {
@@ -460,15 +460,15 @@ class Questionaire extends Component {
 class ConsultationDetail extends React.Component {
 
     constructor(props) {
-        console.log("ConsultationDetail - constructor props=", props);
+        // console.log("ConsultationDetail - constructor props=", props);
         super(props);
      
         this.state = {
             uiLoading: false,
-            showBasicInfo: false,
+            showBasicInfo: true,
             showQuestionaire: false,
             showDietDiary: false,
-            showPersonalConditions: true,
+            showPersonalConditions: false,
             dataChangeToggle: true,
         }
 
@@ -478,7 +478,7 @@ class ConsultationDetail extends React.Component {
             consultationId: props.consultationId,
             consultationDetail: props.consultationDetail,
         };
-        console.log("ConsultationDetail - constructor this.data=", this.data);
+        // console.log("ConsultationDetail - constructor this.data=", this.data);
     };
 
     componentDidMount = () => {
@@ -487,7 +487,7 @@ class ConsultationDetail extends React.Component {
 
     //-------------- Close Consultation Detail ----------------------------------------------------
     handleCloseConsultationDetail = () => {
-        console.log('ConsultationDetail handleCloseConsultationDetail');
+        // console.log('ConsultationDetail handleCloseConsultationDetail');
         this.props.onConsultationDetailClose();
     }
 
@@ -525,8 +525,8 @@ class ConsultationDetail extends React.Component {
 
     //-------------- handle Personal Conditions Change ----------------------------------------------------
     handlePersonalConditionsChange = (event, section, indexCondition, answerType) => {
-        console.log('handlePersonalConditionsChange=', event.target.name, '/', event.target.value, 
-            'section/question/answerType:', section, '/', indexCondition, '/', answerType);
+        // console.log('handlePersonalConditionsChange=', event.target.name, '/', event.target.value, 
+        //     'section/question/answerType:', section, '/', indexCondition, '/', answerType);
         
         switch (answerType){
             case 'boolean': this.data.consultationDetail.personalConditions[section].conditions[indexCondition].answer = !this.data.consultationDetail.personalConditions[section].conditions[indexCondition].answer;
@@ -541,7 +541,7 @@ class ConsultationDetail extends React.Component {
 
     //-------------- Diet Diary ----------------------------------------------------
     handleDietDiaryChange = (event, row, keyword) => {
-        console.log('handleDietDiaryChange=', event.target.name, '/', event.target.value);
+        // console.log('handleDietDiaryChange=', event.target.name, '/', event.target.value);
         switch (keyword) {
             case 'date': this.data.consultationDetail.dietDiary[row].date = event.target.value;
                         break
@@ -576,13 +576,13 @@ class ConsultationDetail extends React.Component {
             default:
                 console.log('handleDietDiaryChange keyword not defined:', keyword);
         }
-        console.log('handleDietDiaryChange this.data.consultationDetail.dietDiary[row]=', this.data.consultationDetail.dietDiary[row]);
+        // console.log('handleDietDiaryChange this.data.consultationDetail.dietDiary[row]=', this.data.consultationDetail.dietDiary[row]);
 
     }
 
     //-------------- Questionaire ------------------    
     handleQuestionaireSectionResultChange = (event, section) => {
-        console.log('handleQuestionaireSectionResultChange=', event.target.name, '/', event.target.value);
+        // console.log('handleQuestionaireSectionResultChange=', event.target.name, '/', event.target.value);
         this.data.consultationDetail.questionaire[section].result = event.target.value;
     }
 
@@ -659,7 +659,6 @@ class ConsultationDetail extends React.Component {
                     // console.log('handleChangeBasicInfo calc BMI:', h + '/', w + '/' + bmi + '/' + 
                     //     this.data.consultationDetail.basicInfo.bmiResult);
                     this.setState({ dataChangeToggle: !this.state.dataChangeToggle});
-                    console.log("hello");
                 }}
                 catch
                 {};
@@ -1114,7 +1113,10 @@ class ConsultationTable extends React.Component {
                 );
             })
             .catch((error) => {
-                if (error.response.status === 403) {
+                if (typeof (error.response.status) == 'undefined') {
+                    console.log('handleConsultationRowSelected error:', error.response);
+                    this.props.history.push('/login');
+                } else if (error.response.status === 403) {
                     console.log('handleConsultationRowSelected error:', error.response.data);
                     this.props.history.push('/login');
                 }
@@ -1188,7 +1190,7 @@ export class Consultations extends Component {
     addConsultation = () => {
         const newConsultationData = consultation;
         newConsultationData.basicInfo.dateOfConsultation = Date.now();  //???? WHY THIS IS NOT WORKING ???
-        console.log("addConsultation newConsultationData=", newConsultationData);
+        // console.log("addConsultation newConsultationData=", newConsultationData);
 
         authMiddleWare(this.props.history);
         const authToken = localStorage.getItem('AuthToken');

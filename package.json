@@ -40,5 +40,11 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/yourhealthveryimportant/us-central1"
+
+  
+  "proxy": "http://localhost:5001/yourhealthveryimportant/us-central1",
+  
+
+  "proxy-prod": "https://us-central1-yourhealthveryimportant.cloudfunctions.net"
+  
 }

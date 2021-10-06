@@ -48,7 +48,7 @@ class login extends Component {
             .then((response) => {
                 console.log('login :response.data=', response.data);
                 localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-                this.props.history.push('/');
+                this.props.history.push('/clients');
             })
             .catch((error) => {
                 console.log('login :error=', error);

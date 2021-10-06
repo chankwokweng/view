@@ -23,14 +23,14 @@ function App() {
               <Nav.Link as={Link} to="/login">Login</Nav.Link>
               <Nav.Link as={Link} to="/profile">My Profile</Nav.Link>
               <Nav.Link as={Link} to="/clients">Clients</Nav.Link>
-              <Nav.Link as={Link} to="/addClient">Add new client</Nav.Link>
-              <Nav.Link as={Link} to="/editClient">View client</Nav.Link>
+              {/* <Nav.Link as={Link} to="/addClient">Add new client</Nav.Link>
+              <Nav.Link as={Link} to="/editClient">View client</Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         <div>
           <Switch>
-            <Route exact path="/" component={clients} />
+            <Route exact path="/" component={login} />
             <Route exact path="/login" component={login} />
             <Route exact path="/profile" component={profile} />
             <Route exact path="/clients" component={clients} />

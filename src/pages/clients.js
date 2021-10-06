@@ -180,9 +180,14 @@ class clients extends Component {
                     uiLoading: false
                 });
             })
-            .catch((err) => {
-                console.log('clients componentDidMount err=',  err);
-                if (err.response.status === 403) {
+            .catch((error) => {              
+                console.log('clients componentDidMount error:', error);
+
+                if (typeof (error) == 'undefined') {
+                    this.props.history.push('/login');
+                } else if (typeof (error.response.status) == 'undefined') {
+                    this.props.history.push('/login');
+                } else if (error.response.status === 403) {
                     this.props.history.push('/login')
                 }
             });
